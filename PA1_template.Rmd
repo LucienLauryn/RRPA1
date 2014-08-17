@@ -1,0 +1,43 @@
+# Reproducible Research: Peer Assessment 1
+
+
+## Loading and preprocessing the data
+```{r}
+x = read.csv("activity.csv")
+```
+
+
+## What is mean total number of steps taken per day?
+
+```{r}
+library(ggplot2)
+qplot(x$steps[!is.na(x$steps)], xlab = "Steps")
+average = mean(x$steps[!is.na(x$steps)])
+print(average)
+med = median(x$steps[!is.na(x$steps)])
+print(med)
+```
+
+## What is the average daily activity pattern?
+```{r}
+plot(x$interval,x$steps, type = "l", ylab = "Avg. number of Steps taken", xlab = "5 minute interval")
+```
+
+
+## Imputing missing values
+```{r}
+numna = length(x$steps[is.na(x$steps)])
+A = which(is.na(x$steps))
+for(a in x$steps[A]) {
+     x$steps[A] = average }
+qplot(x$steps, xlab = "Steps")
+average = mean(x$steps)
+print(average)
+med = median(x$steps)
+print(med)
+
+```
+
+
+## Are there differences in activity patterns between weekdays and weekends?
+
